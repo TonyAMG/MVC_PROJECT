@@ -1,0 +1,21 @@
+{
+    "name": "anton/mvc_project",
+    "description": "The example of MVC pattern",
+    "type": "project",
+    "require": {
+        "phpmailer/phpmailer": "^6.1",
+        "ext-mbstring": "*"
+    },
+    "authors": [
+        {
+            "name": "Tony",
+            "email": "anton.semionov1@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "autoload": {
+        "psr-4": {
+            "" : "src/"
+        }
+    }
+}

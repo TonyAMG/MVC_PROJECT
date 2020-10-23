@@ -1,0 +1,90 @@
+        <h1 class="title">Регистрация пользователя</h1>
+        <!--RESUME_REGISTRATION_BEGIN-->
+        <p>
+            <hr>
+            <span class="returned">Сервер обнаружил, что ты уже был на данной странице и пытался её заполнить.</span><br>
+            <a class="a2" href="">Продолжить</a> | <a class="a1" href="session_reset">Сбросить</a>
+            <hr>
+        </p>
+        <!--RESUME_REGISTRATION_END-->
+
+        <form method="post" action="register_user_post" enctype="multipart/form-data">
+            <p>
+                <label>
+                    Введи имя:<!--SPACES[12]-->
+                    <input type="text" maxlength="20" name="name" value="<!--INPUT_NAME-->">
+                    <span class="description">( _, латиница, цифры; мин. 5 - макс. 20 символов)</span>
+                </label>
+            </p>
+            <p>
+                <label>
+                    Создай пароль:<!--SPACES[5]-->
+                    <input type="password" maxlength="30" name="password" value="<!--INPUT_PASSWORD-->">
+                    <span class="description">( _, латиница, цифры; мин. 10 - макс. 30 символов)</span>
+                </label>
+            </p>
+            <p>
+                <label>
+                    Выбери пол:<!--SPACES[9]-->
+                    <input id="sex_male" type="radio" name="sex" value="male" <!--INPUT_SEX_MALE-->> <label for="sex_male">мужской</label>
+                    <input id="sex_female" type="radio" name="sex" value="female" <!--INPUT_SEX_FEMALE-->> <label for="sex_female">женский</label>
+                </label>
+            </p>
+            <p>
+                <label>
+                    Введи email:<!--SPACES[10]-->
+                    <input type="text" size="20" maxlength="50" name="email" value="<!--INPUT_EMAIL-->">
+                    <span class="description">(макс. 50 символов)</span>
+                </label>
+            </p>
+            <p>
+                <label>Тип кредитной карты:<!--SPACES[13]-->
+                <select name="card_type">
+                    <option value="" >Выбери тип</option>
+                    <option value="mastercard" <!--INPUT_CARD_TYPE_MASTERCARD-->>Mastercard</option>
+                    <option value="visa" <!--INPUT_CARD_TYPE_VISA-->>Visa</option>
+                </select>
+                </label>
+            </p>
+            <p>
+                <label>
+                    Номер карты:<!--SPACES[8]-->
+                    <input type="text" maxlength="16" name="card_number" value="<!--INPUT_CARD_NUMBER-->">
+                    <span class="description">(16 цифр)</span>
+                </label>
+            </p>
+            <p>
+                <label>
+                    Год рождения:<!--SPACES[7]-->
+                    <input type="text" maxlength="10" name="birth_year" value="<!--BIRTH_YEAR-->">
+                    <span class="description">(1920 - 2020)</span>
+                </label>
+            </p>
+
+            <p>
+                <label>
+                    <span style="float: left;">Кратко о себе:<!--SPACES[8]--></span><br>
+                    <textarea style="float: left;" name="about_yourself" rows="5" cols="37" wrap="hard"><!--ABOUT_YOURSELF--></textarea>
+                    <br><br><span style="float: left;" class="description">&nbsp;(не более 200 символов)</span>
+                </label>
+            </p>
+            <p>
+                <label>
+                    <br><br><br>
+                    Загрузи своё фото:<!--SPACES[40]--><span style="float: top;" class="description">(макс. размер 2 Мб)</span><br>
+                    <input type="file" id="profile_pic" name="profile_pic" accept=".jpg, .jpeg, .png">
+                </label>
+            </p>
+            <p>
+                <label>
+                    <input type="checkbox" name="send_email" value="yes" <!--SEND_EMAIL-->>
+                    Отправить форму и фото на почту
+                </label>
+            </p>
+            <p>
+                <input name="button" type="hidden" value="pushed">
+            </p>
+            <p>
+                <input type="submit" value="Зарегистрироваться">
+            </p>
+        </form>
