@@ -9,12 +9,15 @@
 $host = 'MVC_PROJECT';
 //адрес директории с HTML-шаблонами
 $templates_dir =  dirname(__FILE__).'/../templates/';
+//путь к шрифту для капчи
+$font = dirname(__FILE__) . '/../font/gost.ttf';
 //директория загрузки файлов
 $upload_dir = dirname(__FILE__) . '/../upload/';
 //конфиг именования загруженых фото
 $upload_photo_path = $upload_dir . session_id() . '_photo.jpg';
 //максимальный размер загружаемых фото (в байтах)
 $photo_max_size = 2097152;  //по умолчанию - 2 Мб
+
 
 
 

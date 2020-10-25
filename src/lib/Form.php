@@ -7,9 +7,9 @@ namespace lib;
 class Form
 {
     protected $inputs_properties;
-    public $sanitized_post;
     protected $db_check;
     protected $error_msg;
+    public $sanitized_post;
 
 
     public function __construct($inputs_properties, $db_check, $error_msg)

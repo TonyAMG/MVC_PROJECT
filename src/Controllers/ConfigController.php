@@ -8,6 +8,7 @@ class ConfigController
 {
     public $host;
     public $templates_dir;
+    public $font;
     public $upload_dir;
     public $upload_photo_path;
     public $photo_max_size;
@@ -21,6 +22,7 @@ class ConfigController
         require dirname(__FILE__).'/../../config/config.php';
         $this->host = $host;
         $this->templates_dir = $templates_dir;
+        $this->font = $font;
         $this->upload_dir = $upload_dir;
         $this->upload_photo_path = $upload_photo_path;
         $this->photo_max_size = $photo_max_size;
