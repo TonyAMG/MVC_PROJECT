@@ -6,6 +6,5 @@ return [
     '~(^$)|(main/(.*))~' => [Controllers\MainController::class, 'main'],
     '~register_user_post$~' => [Controllers\RegController::class, 'register'],
     '~reg/(.*)$~' => [Controllers\RegController::class, 'main'],
-    '~^auth/(.*)$~' => [Controllers\AuthController::class, 'main'],
-
+    '~^auth/(.*)$~' => [Controllers\AuthController::class, 'main']
 ];
