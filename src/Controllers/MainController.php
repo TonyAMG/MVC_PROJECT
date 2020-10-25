@@ -21,20 +21,6 @@ class MainController
         $this->view->htmlViewer('footer');
     }
 
-    //action удаления сессий
-    public function sessionUnset()
-    {
-        session_unset();
-        //@unlink($upload_photo_path);
-        header('Location: '.$_SERVER['HTTP_REFERER']);
-    }
-
-    //action релокейшна на главную страницу из любой точки сайта
-    public function mainPage()
-    {
-        header('Location: http://'.$_SERVER['HTTP_HOST'].'/MVC_PROJECT/');
-    }
-
     //action ошибки 404
     public function error404()
     {

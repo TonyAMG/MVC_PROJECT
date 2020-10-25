@@ -3,14 +3,11 @@
 //подкллючаем автолоадер
 require dirname(__FILE__) . '/vendor/autoload.php';
 
-//подключаем конфиг
-require dirname(__FILE__) . '/config/config.php';
-
 //стартуем сессию
 session_start();
 
 $route = $_GET['route'] ?? '';
-$routes = require __DIR__ . '/src/routes.php';
+$routes = require dirname(__FILE__) . '/src/routes.php';
 
 $isRouteFound = false;
 foreach ($routes as $pattern => $controllerAndAction) {

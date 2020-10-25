@@ -1,8 +1,22 @@
 <h1 class="title">Вход</h1>
 <p>
-    Тут будет форма ввода логина и пароля.
+    <label>
+        Введи имя:<!--SPACES[12]-->
+        <input type="text" maxlength="20" name="name" value="<!--INPUT_NAME-->">
+        <span class="description">( _, латиница, цифры; мин. 5 - макс. 20 символов)</span>
+    </label>
 </p>
 <p>
-    Еще не зарегистрированы?<br>
-    <a href="register_user">Зарегистрироваться</a>
+    <label>
+        Введи пароль:<!--SPACES[6]-->
+        <input type="password" maxlength="30" name="password" value="<!--INPUT_PASSWORD-->">
+        <span class="description">( _, латиница, цифры; мин. 10 - макс. 30 символов)</span>
+    </label>
+</p>
+<p>
+    <input type="submit" value="Войти">
+</p>
+<p>
+    Еще не зарегистрирован?<br>
+    <a href="../reg/">Зарегистрироваться</a>
 </p>

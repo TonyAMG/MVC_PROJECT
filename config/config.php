@@ -4,6 +4,9 @@
 //подключаем русскую локализацию
 //require dirname(__FILE__) . '/../src/view/localisation/ru.php';
 
+
+//название основной директроии приложения
+$host = 'MVC_PROJECT';
 //адрес директории с HTML-шаблонами
 $templates_dir =  dirname(__FILE__).'/../templates/';
 //директория загрузки файлов
@@ -30,7 +33,6 @@ $inputs_properties = [
            "card_number"    =>  ["max_length" => 16, "filter_credit_card" => FILTER_VALIDATE_REGEXP, "validation_type" => "filter", "filter_var_options" => [
                                                                                                                                                             "mastercard" => ["options" => ["regexp" => "/5[1-5][0-9]{14}/"]],
                                                                                                                                                             "visa" => ["options" => ["regexp" => "/^4[0-9]\d+$/"]]]]
-
 ];
 
 
@@ -66,7 +68,7 @@ $parse_table = [
            '<!--INPUT_CARD_TYPE_VISA-->'        =>           '<?=(@$sanitized_post["card_type"]==="visa" || @$_SESSION["card_type"] === "visa") ? "selected" : "" ?>',
            '<!--INPUT_CARD_NUMBER-->'           =>           '<?=$_SESSION["card_number"] ?? @$sanitized_post["card_number"] ?>',
 
-           '<!--VALIDATION_ERROR-->'            =>           '<?=$this->validation_error??""?>',
+           '<!--VALIDATION_ERROR-->'            =>           '<?=$vars??""?>',
 
             '<!--PREVIEW_KEY-->'                =>           '<?=(!$this->input_correct[$key])?:$this->preview_loc[$key]?>',
             '<!--PREVIEW_VALUE-->'              =>          '<?=$value?>',

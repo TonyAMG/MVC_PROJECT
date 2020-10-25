@@ -6,6 +6,11 @@ namespace lib;
 
 class FormReg extends Form
 {
+    public $validation_error;
+    public $validated_post_db;
+    public $validated_post_filter;
+    public $correct_answers;
+
 
     //сверка с базой данной
     public function dbCheck()
@@ -33,27 +38,30 @@ class FormReg extends Form
                 }
             }
         }
+        $this->validated_post_db = $validated_post_db;
         return @$validated_post_db;
     }
 
     //валидатор на основе filter_var()
-    public function validator($sanitized_post, $inputs_properties, $error_msg, &$validation_error)
+    public function validator()
     {
-        $ip = $inputs_properties;
-        $sp = $sanitized_post;
+        $ip = $this->inputs_properties;
+        $sp = $this->sanitized_post;
+        $error_msg = $this->error_msg;
+
         foreach ($sp as $key => $value) {
             if (isset($ip[$key]["filter"])) {
                 if (isset($ip[$key]["filter_var_options"]) ) {
                     if (filter_var($sp[$key], $ip[$key]["filter"], $ip[$key]["filter_var_options"])) {
-                        $validated_post[$key] = $sp[$key];
+                        $validated_post_filter[$key] = $sp[$key];
                     } else {
-                        $validation_error .= $error_msg[$key]["validator"];
+                        $this->validation_error .= $error_msg[$key]["validator"];
                     }
                 } else {
                     if (filter_var($sp[$key], $ip[$key]["filter"])) {
-                        $validated_post[$key] = $sp[$key];
+                        $validated_post_filter[$key] = $sp[$key];
                     } else {
-                        $validation_error .= $error_msg[$key]["validator"];
+                        $this->validation_error .= $error_msg[$key]["validator"];
                     }
                 }
             }
@@ -62,19 +70,39 @@ class FormReg extends Form
             if (isset($ip[$key]["filter_credit_card"])) {
                 if ($sp["card_type"] === "mastercard") {
                     if (filter_var($sp[$key], $ip[$key]["filter_credit_card"], $ip[$key]["filter_var_options"]["mastercard"])) {
-                        $validated_post[$key] = $sp[$key];
+                        $validated_post_filter[$key] = $sp[$key];
                     } else {
-                        $validation_error .= $error_msg[$key]["validator"];
+                        $this->validation_error .= $error_msg[$key]["validator"];
                     }
                 } elseif ($sp["card_type"] === "visa") {
                     if (filter_var($sp[$key], $ip[$key]["filter_credit_card"], $ip[$key]["filter_var_options"]["visa"])) {
-                        $validated_post[$key] = $sp[$key];
+                        $validated_post_filter[$key] = $sp[$key];
                     } else {
-                        $validation_error .= $error_msg[$key]["validator"];
+                        $this->validation_error .= $error_msg[$key]["validator"];
                     }
                 }
             }
         }
-        return @$validated_post;
+        $this->validated_post_filter = @$validated_post_filter;
+        return @$validated_post_filter;
     }
+
+    //рассчитываем правильные ответы
+    public function correctAnswersChecker()
+    {
+        foreach ($this->inputs_properties as $key => $value) {
+            if ($this->inputs_properties[$key]["validation_type"] === "db") {
+                if (isset($this->validated_post_db[$key])) $this->correct_answers[$key] = $this->validated_post_db[$key];
+            }
+            if ($this->inputs_properties[$key]["validation_type"] === "filter") {
+                if (isset($this->validated_post_filter[$key])) $this->correct_answers[$key] = $this->validated_post_filter[$key];
+            }
+            if ($this->inputs_properties[$key]["validation_type"] === "db_filter") {
+                if (isset($this->validated_post_db[$key]) && isset($this->validated_post_filter[$key])) $this->correct_answers[$key] = $this->validated_post_db[$key];
+            }
+        }
+        return $this->correct_answers;
+    }
+
+
 }

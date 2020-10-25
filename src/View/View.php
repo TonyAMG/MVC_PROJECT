@@ -4,28 +4,32 @@
 namespace View;
 
 
+use Controllers\ConfigController;
+
 class View
 {
+    private $config;
     private $parse_table;
     private $templates_dir;
+    private $page_title;
 
     public function __construct()
     {
-        require dirname(__DIR__) . '/../config/config.php';
-        $this->parse_table = $parse_table;
-        $this->templates_dir = $templates_dir;
+        $this->config = new ConfigController();
+        $this->parse_table = $this->config->parse_table;
+        $this->templates_dir = $this->config->templates_dir;
     }
 
     //интерфейс viewer-а HTML-шаблонов
-    public function htmlViewer($html_template, array $vars = [], $mode = "echo")
+    public function htmlViewer($html_template, $vars = '', $mode = "echo")
     {
         $this->html_template = $html_template;
         @$this->page_title = $vars["page_title"];
         if ($mode === "echo") {
             if ($this->html_template === 'header') header("Cache-Control: no-cache");
-            echo   $this->templateParser($this->html_template);
+            echo   $this->templateParser($this->html_template, $vars);
         }
-        if ($mode === "return") return $this->templateParser($this->html_template);
+        if ($mode === "return") return $this->templateParser($this->html_template, $vars);
     }
 
     //резолвер имён HTML-шаблонов
@@ -35,7 +39,7 @@ class View
     }
 
     //парсер HTML-шаблонов
-    private function templateParser($html_template)
+    private function templateParser($html_template, $vars = '')
     {
         $raw_html = file_get_contents($this->templateNameResolver($html_template));
         foreach ($this->parse_table as $key => $value) {
@@ -46,11 +50,11 @@ class View
         //подстановка требуемого заголовка в страницу
         @$replaced_template = str_replace('<!--TITLE-->', $this->page_title, $replaced_template);
         $this->parsed_html = preg_replace($this->parse_table["regex"][0][0], $this->parse_table["regex"][0][1], $replaced_template);
-        return $this->htmlRender();
+        return $this->htmlRender($vars);
     }
 
     //рендер обработанной HTML-страницы
-    private function htmlRender()
+    private function htmlRender($vars = '')
     {
         ob_start();
         eval("?> $this->parsed_html <?php ");
