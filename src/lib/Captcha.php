@@ -4,7 +4,7 @@
 namespace lib;
 
 
-use Controllers\ConfigController;
+use lib\Config;
 
 class Captcha
 {
@@ -13,47 +13,52 @@ class Captcha
 
     public function __construct()
     {
-        $this->config = new ConfigController();
+        $this->config = new Config();
     }
 
-    public function generateCAPTCHA($secret_number)
+    public function generateCAPTCHA(int $secret_number, bool $create_noise = false) : void
     {
-
         //путь к шрифту
         $font = $this->config->font;
-
         //создаем фон рисунка
-        $img = imagecreate(130, 60);
+        $image = imagecreatetruecolor(130, 60);
+        //задаем цвет фона (прозрачный)
+        $background = imagecolorallocatealpha($image, 0, 0, 0, 127);
+        //заполняем фон
+        imagefill($image, 0, 0, $background);
 
-        //задаем цвет фона
-        imagecolorallocate($img, 255, 255, 255);
+        //генерируем цифры, их количество зависит от числа, переданного в $secret_number
+        for ($i = 0, $n = 0, $x = 10; $i < strlen($secret_number); $i++, $n++, $x+=25) {
+            $img_color[$i] = imagecolorallocate($image, mt_rand(0, 255), mt_rand(0, 255), mt_rand(0, 255));
+            //вывод цифр на наш рисунок со случайной генерацией их расположения и указанием шрифта
+            imagettftext($image,
+                mt_rand(20, 50),
+                mt_rand(-20, 20),
+                $x,
+                50,
+                $img_color[$n],
+                $font,
+                substr($secret_number, $n, 1)
+            );
+        }
 
-        //это цвета будущих цифр на рисунке
-        $imgcolor[0] = imagecolorallocate($img, 0, 0, 0);
-        $imgcolor[1] = imagecolorallocate($img, 0, 100, 0);
-        $imgcolor[2] = imagecolorallocate($img, 200, 0, 0);
-        $imgcolor[3] = imagecolorallocate($img, 0, 0, 250);
-
-        //Вывод цифр на наш рисунок со случайной генерацией их расположения и указанием шрифта
-        imagettftext($img, mt_rand(30, 40), mt_rand(-10, 10), mt_rand(3, 8), mt_rand(40, 60), $imgcolor[mt_rand(0, 3)], $font, substr($secret_number, 0, 1));
-        imagettftext($img, mt_rand(30, 40), mt_rand(-10, 10), mt_rand(40, 45), mt_rand(40, 60), $imgcolor[mt_rand(0, 3)], $font, substr($secret_number, 1, 1));
-        imagettftext($img, mt_rand(30, 40), mt_rand(-10, 10), mt_rand(65, 75), mt_rand(40, 60), $imgcolor[mt_rand(0, 3)], $font, substr($secret_number, 2, 1));
-        imagettftext($img, mt_rand(30, 40), mt_rand(-10, 10), mt_rand(100, 110), mt_rand(40, 60), $imgcolor[mt_rand(0, 3)], $font, substr($secret_number, 3, 1));
-
-        //создаем помехи в виде точек на нашем рисунке
-        $imgpx = mt_rand(444, 1000);
-        while($imgpx > 0){
-            imagesetpixel($img, mt_rand(0, 150), mt_rand(0,60), $imgcolor[mt_rand(0, 3)]);
-            $imgpx--;
+        //создаем помехи в виде точек на нашем рисунке,
+        //если передано значение true в $create_noise
+        if ($create_noise === true) {
+            $imgpx = mt_rand(444, 1000);
+            while($imgpx > 0){
+                imagesetpixel($image, mt_rand(0, 130), mt_rand(0, 60), $img_color[mt_rand(0, 3)]);
+                $imgpx--;
+            }
         }
 
         //сглаживающий фильтр
-        imagefilter($img, IMG_FILTER_SMOOTH, mt_rand(10, 12));
-
-        //Заголовок, который сообщает браузеру, что далее последует картинка
-        header('Content-type: image/gif');
-
-        //Собственно функция, формирующая картинку
-        imagePNG($img);
+        imagefilter($image, IMG_FILTER_SMOOTH, mt_rand(10, 12));
+        //сохраняем прозрачный фон
+        imagesavealpha($image, true);
+        //заголовок, который сообщает браузеру, что далее последует картинка
+        header('Content-type: image/png');
+        //функция, формирующая картинку
+        imagePNG($image);
     }
 }

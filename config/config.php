@@ -1,14 +1,17 @@
 <?php
 
 //require dirname(__FILE__) . '/../config/error_msg.php';
-//подключаем русскую локализацию
-//require dirname(__FILE__) . '/../src/view/localisation/ru.php';
+
 
 
 //название основной директроии приложения
 $host = 'MVC_PROJECT';
-//адрес директории с HTML-шаблонами
+//директория с HTML-шаблонами
 $templates_dir =  dirname(__FILE__).'/../templates/';
+//директория с файлами локализации
+$localisation_dir = dirname(__FILE__).'/../localisation/';
+//файл текущей локализации
+$localisation_file = 'ru.php';
 //путь к шрифту для капчи
 $font = dirname(__FILE__) . '/../font/gost.ttf';
 //директория загрузки файлов
@@ -18,7 +21,16 @@ $upload_photo_path = $upload_dir . session_id() . '_photo.jpg';
 //максимальный размер загружаемых фото (в байтах)
 $photo_max_size = 2097152;  //по умолчанию - 2 Мб
 
-
+//список маршрутизации
+$routes_list = [
+    '~session_reset/$~' => [Controllers\RegController::class, 'sessionUnsetAction'],
+    '~main_paige$~' => [Controllers\MainController::class, 'mainPage'],
+    '~(^$)|(main/(.*))~' => [Controllers\MainController::class, 'main'],
+    '~register_user_post$~' => [Controllers\RegController::class, 'register'],
+    '~reg/$~' => [Controllers\RegController::class, 'mainAction'],
+    '~^auth/$~' => [Controllers\AuthController::class, 'main'],
+    '~^captcha/(.*)$~' => [Controllers\AuthController::class, 'captcha']
+];
 
 
 //список доступных input с формы
@@ -54,22 +66,20 @@ $db_check = [
 //ключа "regex", который сам является ассоциативным массивом
 //вида ключ = [пара] для автозамены по регулярным выражениям
 $parse_table = [
-           '<!--FORM_URL-->'                    =>           '<?=$_SERVER["PHP_SELF"]?>',
-           '<!--RESUME_REGISTRATION_BEGIN-->'   =>           '<?php if (count(array_filter($_SESSION)) 
-                                                              && @!($_SERVER["HTTP_REFERER"] === "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]") 
-                                                              && @!($_SERVER["HTTP_REFERER"] === "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]?reset")): ?>',
+           '<!--RESUME_REGISTRATION_BEGIN-->'   =>           '<?php if (count(array_filter($_SESSION["input"])) 
+                                                              && @!($_SERVER["HTTP_REFERER"] === "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]")): ?>',
            '<!--RESUME_REGISTRATION_END-->'     =>            '<?php endif; ?>',
-           '<!--INPUT_NAME-->'                  =>           '<?=$_SESSION["name"] ?? @$sanitized_post["name"] ?>',
-           '<!--INPUT_PASSWORD-->'              =>           '<?=$_SESSION["password"] ?? @$sanitized_post["password"] ?>',
-           '<!--INPUT_SEX_MALE-->'              =>           '<?=(@$sanitized_post["sex"]==="male" || @$_SESSION["sex"] === "male") ? "checked" : "" ?>',
-           '<!--INPUT_SEX_FEMALE-->'            =>           '<?=(@$sanitized_post["sex"]==="female" || @$_SESSION["sex"] === "female") ? "checked" : "" ?>',
-           '<!--INPUT_EMAIL-->'                 =>           '<?=$_SESSION["email"] ?? @$sanitized_post["email"] ?>',
-           '<!--BIRTH_YEAR-->'                  =>           '<?=$_SESSION["birth_year"] ?? @$sanitized_post["birth_year"] ?>',
-           '<!--ABOUT_YOURSELF-->'              =>           '<?=$_SESSION["about_yourself"] ?? @$sanitized_post["about_yourself"] ?>',
-           '<!--SEND_EMAIL-->'                  =>           '<?=(@$sanitized_post["send_email"] === "yes" || @$_SESSION["send_email"] === "yes") ? "checked" : "" ?>',
-           '<!--INPUT_CARD_TYPE_MASTERCARD-->'  =>           '<?=(@$sanitized_post["card_type"]==="mastercard" || @$_SESSION["card_type"] === "mastercard") ? "selected" : "" ?>',
-           '<!--INPUT_CARD_TYPE_VISA-->'        =>           '<?=(@$sanitized_post["card_type"]==="visa" || @$_SESSION["card_type"] === "visa") ? "selected" : "" ?>',
-           '<!--INPUT_CARD_NUMBER-->'           =>           '<?=$_SESSION["card_number"] ?? @$sanitized_post["card_number"] ?>',
+           '<!--INPUT_NAME-->'                  =>           '<?=$_SESSION["input"]["name"] ?? @$sanitized_post["name"] ?>',
+           '<!--INPUT_PASSWORD-->'              =>           '<?=$_SESSION["input"]["password"] ?? @$sanitized_post["password"] ?>',
+           '<!--INPUT_SEX_MALE-->'              =>           '<?=(@$sanitized_post["sex"]==="male" || @$_SESSION["input"]["sex"] === "male") ? "checked" : "" ?>',
+           '<!--INPUT_SEX_FEMALE-->'            =>           '<?=(@$sanitized_post["sex"]==="female" || @$_SESSION["input"]["sex"] === "female") ? "checked" : "" ?>',
+           '<!--INPUT_EMAIL-->'                 =>           '<?=$_SESSION["input"]["email"] ?? @$sanitized_post["email"] ?>',
+           '<!--INPUT_BIRTH_YEAR-->'            =>           '<?=$_SESSION["input"]["birth_year"] ?? @$sanitized_post["birth_year"] ?>',
+           '<!--INPUT_ABOUT_YOURSELF-->'        =>           '<?=$_SESSION["input"]["about_yourself"] ?? @$sanitized_post["about_yourself"] ?>',
+           '<!--INPUT_SEND_EMAIL-->'            =>           '<?=(@$sanitized_post["send_email"]==="yes" || @$_SESSION["input"]["send_email"] === "yes") ? "checked" : "" ?>',
+           '<!--INPUT_CARD_TYPE_MASTERCARD-->'  =>           '<?=(@$sanitized_post["card_type"]==="mastercard" || @$_SESSION["input"]["card_type"] === "mastercard") ? "selected" : "" ?>',
+           '<!--INPUT_CARD_TYPE_VISA-->'        =>           '<?=(@$sanitized_post["card_type"]==="visa" || @$_SESSION["input"]["card_type"] === "visa") ? "selected" : "" ?>',
+           '<!--INPUT_CARD_NUMBER-->'           =>           '<?=$_SESSION["input"]["card_number"] ?? @$sanitized_post["card_number"] ?>',
 
            '<!--VALIDATION_ERROR-->'            =>           '<?=$vars??""?>',
 

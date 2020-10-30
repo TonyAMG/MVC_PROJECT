@@ -1,27 +1,30 @@
 <h1 class="title">Вход</h1>
 <p>
     <label>
-        Введи имя:<!--SPACES[11]-->
+        Введи логин:<!--SPACES[8]-->
         <input type="text" maxlength="20" name="name" value="">
-        <span class="description">( _, латиница, цифры; мин. 5 - макс. 20 символов)</span>
     </label>
 </p>
 <p>
     <label>
         Введи пароль:<!--SPACES[6]-->
         <input type="password" maxlength="30" name="password" value="">
-        <span class="description">( _, латиница, цифры; мин. 10 - макс. 30 символов)</span>
     </label>
 </p>
 <p>
-    Защита от ботов:<!--SPACES[1]-->
-    <input type="text" maxlength="20" name="name" value=""><br>
-    <img src="../captcha/">
+    <label>
+        Защита от ботов:<!--SPACES[1]-->
+        <input type="text" maxlength="20" name="name" value=""><br><br>
+        <a href="">Обновить капчу</a><br>
+        <img src="../captcha/">
+    </label>
+
 </p>
 <p>
     <input type="submit" value="Войти">
 </p>
+<hr>
 <p>
-    Еще не зарегистрирован?<br>
-    <a href="../reg/">Зарегистрироваться</a>
+    Еще не зарегистрирован?
 </p>
+    <a class="a2" href="../reg/">Зарегистрироваться</a>

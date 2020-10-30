@@ -13,7 +13,7 @@ class FormReg extends Form
 
 
     //сверка с базой данной
-    public function dbCheck()
+    public function dbCheck(): array
     {
         $ip = $this->inputs_properties;
         $sp = $this->sanitized_post;
@@ -43,7 +43,7 @@ class FormReg extends Form
     }
 
     //валидатор на основе filter_var()
-    public function validator()
+    public function validator() : ?array
     {
         $ip = $this->inputs_properties;
         $sp = $this->sanitized_post;
@@ -87,18 +87,31 @@ class FormReg extends Form
         return @$validated_post_filter;
     }
 
-    //рассчитываем правильные ответы
-    public function correctAnswersChecker()
+    //рассчитываем правильные ответы параметры берутся
+    //из конфига и сравниваются по заданному в конфиге алгоритму
+    //можно легко добавить новые условия, не нарушив работу метода
+    public function correctAnswersChecker(): ?array
     {
         foreach ($this->inputs_properties as $key => $value) {
             if ($this->inputs_properties[$key]["validation_type"] === "db") {
-                if (isset($this->validated_post_db[$key])) $this->correct_answers[$key] = $this->validated_post_db[$key];
+                if (isset($this->validated_post_db[$key])) {
+                    $this->correct_answers[$key] = $this->validated_post_db[$key];
+                }
             }
             if ($this->inputs_properties[$key]["validation_type"] === "filter") {
-                if (isset($this->validated_post_filter[$key])) $this->correct_answers[$key] = $this->validated_post_filter[$key];
+                if (isset($this->validated_post_filter[$key])) {
+                    $this->correct_answers[$key] = $this->validated_post_filter[$key];
+                }
             }
             if ($this->inputs_properties[$key]["validation_type"] === "db_filter") {
-                if (isset($this->validated_post_db[$key]) && isset($this->validated_post_filter[$key])) $this->correct_answers[$key] = $this->validated_post_db[$key];
+                if (isset($this->validated_post_db[$key]) && isset($this->validated_post_filter[$key])) {
+                    $this->correct_answers[$key] = $this->validated_post_db[$key];
+                }
+            }
+            if ($this->inputs_properties[$key]["validation_type"] === "file") {
+                if (file_exists($this->upload_dir.session_id().'_photo.jpg')) {
+                    $this->correct_answers[$key] = $this->inputs_properties[$key]["validation_type"];
+                }
             }
         }
         return $this->correct_answers;

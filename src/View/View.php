@@ -4,7 +4,7 @@
 namespace View;
 
 
-use Controllers\ConfigController;
+use lib\Config;
 
 class View
 {
@@ -15,19 +15,23 @@ class View
 
     public function __construct()
     {
-        $this->config = new ConfigController();
+        $this->config = new Config();
         $this->parse_table = $this->config->parse_table;
         $this->templates_dir = $this->config->templates_dir;
     }
 
     //интерфейс viewer-а HTML-шаблонов
-    public function htmlViewer($html_template, $vars = '', $mode = "echo")
+    public function htmlViewer($html_template, $vars = '', $mode = "echo") : ?string
     {
         $this->html_template = $html_template;
         @$this->page_title = $vars["page_title"];
         if ($mode === "echo") {
-            if ($this->html_template === 'header') header("Cache-Control: no-cache");
+            if ($this->html_template === 'header') {
+                header("Cache-Control: no-cache");
+                header("Content-Type: text/html; charset=utf-8");
+            }
             echo   $this->templateParser($this->html_template, $vars);
+            return NULL;
         }
         if ($mode === "return") return $this->templateParser($this->html_template, $vars);
     }
