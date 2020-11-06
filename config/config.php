@@ -27,6 +27,7 @@ $routes_list = [
     '~(^$)|(main/(.*))~' => [Controllers\MainController::class, 'mainAction'],
     '~reg/$~' => [Controllers\RegController::class, 'mainAction'],
     '~reg/successful$~' => [Controllers\RegController::class, 'successfulRegAction'],
+    '~auth/successful$~' => [Controllers\AuthController::class, 'successfulAuthAction'],
     '~^auth/$~' => [Controllers\AuthController::class, 'mainAction'],
     '~^captcha/(.*)$~' => [Controllers\AuthController::class, 'captchaAction'],
     '~server_error/$~' => [Controllers\MainController::class, 'errorServerAction']
