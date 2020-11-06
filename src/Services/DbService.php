@@ -25,16 +25,18 @@ class DbService
         );
     }
 
-    public function query(string $sql, array $params = [], string $className = 'stdClass'): ?array
+    //интерфейс получения данных из таблицы
+    public function query(string $sql, array $params = [], string $fetch_type = PDO::FETCH_ASSOC): ?array
     {
         $sth = $this->pdo->prepare($sql);
         $result = $sth->execute($params);
         if (false === $result) {
             return null;
         }
-        return $sth->fetchAll(PDO::FETCH_CLASS, $className);
+        return $sth->fetchAll($fetch_type);
     }
 
+    //интерфейс добавления данных в таблицу
     public function create(string $sql, array $params = []) : bool
     {
         $sth = $this->pdo->prepare($sql);
@@ -42,6 +44,13 @@ class DbService
         return $result ?  true :  false;
     }
 
+    //интерфейс получения ID последней вставленной строки
+    public function lastInsertId(): string
+    {
+        return $this->pdo->lastInsertId();
+    }
+
+    //singleton-интерфейс получения экземпляра
     public static function getInstance(): self
     {
         if (self::$instance === null) {

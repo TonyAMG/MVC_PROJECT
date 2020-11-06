@@ -1,28 +1,33 @@
 <h1 class="title">Вход</h1>
-<p>
-    <label>
-        Введи логин:<!--SPACES[8]-->
-        <input type="text" maxlength="20" name="name" value="">
-    </label>
-</p>
-<p>
-    <label>
-        Введи пароль:<!--SPACES[6]-->
-        <input type="password" maxlength="30" name="password" value="">
-    </label>
-</p>
-<p>
-    <label>
-        Защита от ботов:<!--SPACES[1]-->
-        <input type="text" maxlength="20" name="name" value=""><br><br>
-        <a href="">Обновить капчу</a><br>
-        <img src="../captcha/">
-    </label>
+<form method="post" action="" enctype="application/x-www-form-urlencoded">
+    <p>
+        <label>
+            Введи логин:<!--SPACES[8]-->
+            <input type="text" maxlength="20" name="login" value="">
+        </label>
+    </p>
+    <p>
+        <label>
+            Введи пароль:<!--SPACES[6]-->
+            <input type="password" maxlength="30" name="password" value="">
+        </label>
+    </p>
+    <p>
+        <label>
+            Защита от ботов:<!--SPACES[1]-->
+            <input type="text" maxlength="20" name="name" value=""><br><br>
+            <a href="">Обновить капчу</a><br>
+            <img src="../captcha/">
+        </label>
 
-</p>
-<p>
-    <input type="submit" value="Войти">
-</p>
+    </p>
+    <p>
+        <input type="hidden" name="button" value="pushed">
+    </p>
+    <p>
+        <input type="submit" value="Войти">
+    </p>
+</form>
 <hr>
 <p>
     Еще не зарегистрирован?

@@ -28,8 +28,8 @@ class Mail
         try {
             $this->mail->isSMTP();
             $this->mail->isHTML(true);
-            //$this->mail->SMTPAuth = true;
-            //$this->mail->Host = $this->config->mail_config['Host'];
+            $this->mail->SMTPAuth = true;
+            $this->mail->Host = $this->config->mail_config['Host'];
             $this->mail->Username = $this->config->mail_config['Username'];
             $this->mail->Password = $this->config->mail_config['Password'];
             $this->mail->Subject = 'You have been successfully registered!';

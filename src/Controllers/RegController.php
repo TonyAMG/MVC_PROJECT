@@ -51,12 +51,15 @@ class RegController
                 $errors = $this->view->htmlViewer('errors', $this->form_reg->validation_error, 'return');
             }
             //если успешно заполенены все поля и загружено фото
-            if ((@count($correct_answers) === count($this->config->inputs_properties))
-                && $is_photo_uploaded) {
-
-                $user_model = new UserModel();
-                $reg_status = $user_model->registerUser($correct_answers);
+            if ((@count($correct_answers) === count($this->config->inputs_properties)) && $is_photo_uploaded) {
+                $user = new UserModel();
+                $reg_status = $user->registerUser($correct_answers);
                 if ($reg_status === true) {
+                    //добавляем задание в табоицу cron
+                    $mail_cron_status = $user->addUserMailToCron();
+                    //отправляем форму регистрации на Email
+                    $mail = new Mail();
+                    $mail->registration($correct_answers);
                     $_SESSION['reg_status'] = 'success';
                     header('Location: /'.$this->config->host.'/reg/successful');
                 } else {
@@ -64,12 +67,6 @@ class RegController
                     $main_controller->errorServerAction();
                     exit;
                 }
-                //отправляем форму регистрации на Email
-                //$mail = new Mail();
-                //$mail->registration($correct_answers);
-                    //$_SESSION['reg_status'] = 'success';
-                    //header('Location: /'.$this->config->host.'/reg_successful/');
-
             }
         }
         //блок вывода HTML-страницы

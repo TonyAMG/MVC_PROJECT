@@ -5,6 +5,7 @@ namespace Controllers;
 
 
 use lib\Captcha;
+use Model\UserModel;
 use View\View;
 
 class AuthController
@@ -23,6 +24,17 @@ class AuthController
 
     public function main()
     {
+        //если нажата кнопка Войти
+        if (isset($_POST["button"])) {
+            $user = new UserModel();
+            $users_credentials = $user->extractUserCredentials();
+
+            if (array_key_exists($_POST['login'], $users_credentials)) {
+                echo "Пользователь существует!";
+            }
+
+        }
+
         $this->view->htmlViewer('header', 'auth');
         $this->view->htmlViewer('auth');
         $this->view->htmlViewer('footer');
