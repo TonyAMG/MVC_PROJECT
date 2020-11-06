@@ -18,7 +18,7 @@ class IndexController
         $this->route = $route;
     }
 
-    public function mainAction()
+    public function mainAction() : void
     {
         $isRouteFound = false;
         foreach ($this->config->routes_list as $pattern => $controllerAndAction) {

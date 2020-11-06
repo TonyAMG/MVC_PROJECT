@@ -23,7 +23,7 @@ class AuthController
 
     public function main()
     {
-        $this->view->htmlViewer('header', ["page_title" => "Вход на сайт"]);
+        $this->view->htmlViewer('header', 'auth');
         $this->view->htmlViewer('auth');
         $this->view->htmlViewer('footer');
     }

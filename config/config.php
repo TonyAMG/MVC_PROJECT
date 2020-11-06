@@ -28,10 +28,26 @@ $routes_list = [
     '~(^$)|(main/(.*))~' => [Controllers\MainController::class, 'main'],
     '~register_user_post$~' => [Controllers\RegController::class, 'register'],
     '~reg/$~' => [Controllers\RegController::class, 'mainAction'],
+    '~reg/successful$~' => [Controllers\RegController::class, 'successfulRegAction'],
     '~^auth/$~' => [Controllers\AuthController::class, 'main'],
-    '~^captcha/(.*)$~' => [Controllers\AuthController::class, 'captcha']
+    '~^captcha/(.*)$~' => [Controllers\AuthController::class, 'captcha'],
+    '~server_error/$~' => [Controllers\MainController::class, 'errorServerAction']
 ];
 
+//настройки для PHPMailer
+$mail_config = [
+    'Host'          =>  'smtp.gmail.com',
+    'Username'      =>  '2005test2005test',
+    'Password'      =>  'password',
+
+];
+
+//настройки базы данных
+$db_config = [
+    'dsn'       =>   'mysql:host=localhost;dbname=mvc_project',
+    'user'      =>   'mvc_project',
+    'password'  =>   'password'
+];
 
 //список доступных input с формы
 //"название_параметра"      =>  ["его свойства"]
@@ -84,7 +100,7 @@ $parse_table = [
            '<!--VALIDATION_ERROR-->'            =>           '<?=$vars??""?>',
 
             '<!--PREVIEW_KEY-->'                =>           '<?=(!$this->input_correct[$key])?:$this->preview_loc[$key]?>',
-            '<!--PREVIEW_VALUE-->'              =>          '<?=$value?>',
+            '<!--PREVIEW_VALUE-->'              =>           '<?=$value?>',
 
             "regex"                             =>           [0 => ['/(<!--SPACES\[)(\d{1,3})(\]-->)/', '<?=$this->spaceGen($2)?>'] ]
 

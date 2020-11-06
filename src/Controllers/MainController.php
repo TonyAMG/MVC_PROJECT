@@ -16,7 +16,7 @@ class MainController
 
     public function main()
     {
-        $this->view->htmlViewer('header', ["page_title" => "Главная страница"]);
+        $this->view->htmlViewer('header', 'main_page');
         $this->view->htmlViewer('main');
         $this->view->htmlViewer('footer');
     }
@@ -24,8 +24,16 @@ class MainController
     //action ошибки 404
     public function error404()
     {
-        $this->view->htmlViewer('header', ["page_title" => "Ошибка"]);
+        $this->view->htmlViewer('header', 'error404');
         $this->view->htmlViewer('404');
+        $this->view->htmlViewer('footer');
+    }
+
+    //action ошибки сервера
+    public function errorServerAction()
+    {
+        $this->view->htmlViewer('header', 'server_error');
+        $this->view->htmlViewer('server_error');
         $this->view->htmlViewer('footer');
     }
 }

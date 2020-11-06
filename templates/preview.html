@@ -1,4 +1,4 @@
-        <h2><?=(@count($vars) > 0)?"Предпросмотр":''?></h2>
+        <h2 class="title"><?=(@count($vars) > 0)?"Предпросмотр":''?></h2>
         <p><b><?=(@$vars["name"])?"Имя:":''?></b>                       <span class="accepted"><?=@$vars["name"]?></span></p>
         <p><b><?=@$vars["password"]?"Пароль:":''?></b>                  <span class="accepted"><?=@$vars["password"]?></span></p>
         <p><b><?=@$vars["sex"]?"Пол:":''?></b>                          <span class="accepted"><?=@($vars["sex"] === "male")?'мужской':''?><?=@($vars["sex"] === "female")?'женский':''?></span></p>
@@ -10,6 +10,7 @@
         <p><b><?=@$vars["send_email"]?'Флажок отправки:':''?></b>       <span class="accepted"><?=@$vars["send_email"]?'отмечен':''?></span></p>
         <?=@$vars["upload_photo"] ? '
                 <p><b>Фото:</b> <span class="accepted">загружено</span></p>
-                <img src="http://'.$_SERVER["HTTP_HOST"].'/PHP_FORM_OOP/upload/'.session_id().'_photo.jpg?nocache='.time().'" alt="Твоё фото" width="300" height="400">
-                <p><a href="http://'.$_SERVER["HTTP_HOST"].'/PHP_FORM_OOP/upload/'.session_id().'_photo.jpg">Скачать фото</a></p>
+                <h2 class="title">Фото</h2>
+                <img src="http://'.$_SERVER["HTTP_HOST"].'/MVC_PROJECT/upload/'.session_id().'_photo.jpg?nocache='.time().'" alt="Твоё фото" width="300" height="400">
+                <p><a href="http://'.$_SERVER["HTTP_HOST"].'/MVC_PROJECT/upload/'.session_id().'_photo.jpg">Скачать фото</a></p>
         ':''?>

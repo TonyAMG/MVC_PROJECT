@@ -5,7 +5,8 @@
     "require": {
         "phpmailer/phpmailer": "^6.1",
         "ext-mbstring": "*",
-        "ext-gd": "*"
+        "ext-gd": "*",
+        "ext-pdo": "*"
     },
     "authors": [
         {

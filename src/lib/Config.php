@@ -19,6 +19,8 @@ class Config
     public $db_check;
     public $parse_table;
     public $error_msg;
+    public $mail_config;
+    public $db_config;
 
     public function __construct()
     {
@@ -36,5 +38,7 @@ class Config
         $this->db_check = $db_check;
         $this->parse_table = $parse_table;
         $this->error_msg = $error_msg;
+        $this->mail_config = $mail_config;
+        $this->db_config = $db_config;
     }
 }

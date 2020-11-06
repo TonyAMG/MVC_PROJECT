@@ -17,8 +17,8 @@ class FileUploader
     //загрузка файла и проверка его размера
     public function photoUploader(&$validation_error = ''): bool
     {
-        if ($_FILES['profile_pic']['size'] < $this->photo_max_size) {
-            if (move_uploaded_file($_FILES['profile_pic']['tmp_name'], $this->upload_photo_path)) {
+        if (@$_FILES['profile_pic']['size'] < $this->photo_max_size) {
+            if (move_uploaded_file(@$_FILES['profile_pic']['tmp_name'], $this->upload_photo_path)) {
                 $_SESSION["input"]["upload_photo"] = "file";
                 return true;
             } else {

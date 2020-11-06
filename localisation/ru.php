@@ -2,7 +2,11 @@
 
 $page_title = [
     "registration" => "Регистрация пользователя",
-    "main_page" => "Главная страница"
+    "main_page" => "Главная страница",
+    "auth" => "Вход на сайт",
+    "reg_successful" => "Ты успешно зарегистрирован",
+    "error404" => "Ошибка 404",
+    "server_error" => "Ошибка сервера"
 ];
 
 $preview_template_loc = [
@@ -16,4 +20,8 @@ $preview_template_loc = [
     "about_yourself" => "О себе:",
     "send_email" => "Флажок отправки:",
     "upload_photo" => "Фото:"
+];
+
+$mail = [
+    "mail_sent" => "",
 ];
