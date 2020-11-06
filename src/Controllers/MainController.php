@@ -14,7 +14,7 @@ class MainController
         $this->view = new View();
     }
 
-    public function main()
+    public function mainAction()
     {
         $this->view->htmlViewer('header', 'main_page');
         $this->view->htmlViewer('main');
@@ -22,7 +22,7 @@ class MainController
     }
 
     //action ошибки 404
-    public function error404()
+    public function error404Action()
     {
         $this->view->htmlViewer('header', 'error404');
         $this->view->htmlViewer('404');

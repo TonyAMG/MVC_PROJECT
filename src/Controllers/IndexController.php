@@ -31,7 +31,7 @@ class IndexController
         //ошибка 404, если запрашиваемый путь не найден
         if (!$isRouteFound) {
             $main = new MainController();
-            $main->error404();
+            $main->error404Action();
             return;
         }
 

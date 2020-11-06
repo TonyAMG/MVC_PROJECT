@@ -90,7 +90,7 @@ class RegController
         //запрещаем обращение к странице любым другим способом
         } else {
             $main_controller = new MainController();
-            $main_controller->error404();
+            $main_controller->error404Action();
         }
     }
 

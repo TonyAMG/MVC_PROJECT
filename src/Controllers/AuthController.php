@@ -22,17 +22,15 @@ class AuthController
         $this->secret_number = mt_rand(1000, 9999);
     }
 
-    public function main()
+    public function mainAction()
     {
         //если нажата кнопка Войти
         if (isset($_POST["button"])) {
             $user = new UserModel();
             $users_credentials = $user->extractUserCredentials();
-
             if (array_key_exists($_POST['login'], $users_credentials)) {
                 echo "Пользователь существует!";
             }
-
         }
 
         $this->view->htmlViewer('header', 'auth');
@@ -40,7 +38,7 @@ class AuthController
         $this->view->htmlViewer('footer');
     }
 
-    public function captcha()
+    public function captchaAction()
     {
         $this->captcha->generateCAPTCHA($this->secret_number);
     }

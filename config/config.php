@@ -24,13 +24,11 @@ $photo_max_size = 2097152;  //по умолчанию - 2 Мб
 //список маршрутизации
 $routes_list = [
     '~session_reset/$~' => [Controllers\RegController::class, 'sessionUnsetAction'],
-    '~main_paige$~' => [Controllers\MainController::class, 'mainPage'],
-    '~(^$)|(main/(.*))~' => [Controllers\MainController::class, 'main'],
-    '~register_user_post$~' => [Controllers\RegController::class, 'register'],
+    '~(^$)|(main/(.*))~' => [Controllers\MainController::class, 'mainAction'],
     '~reg/$~' => [Controllers\RegController::class, 'mainAction'],
     '~reg/successful$~' => [Controllers\RegController::class, 'successfulRegAction'],
-    '~^auth/$~' => [Controllers\AuthController::class, 'main'],
-    '~^captcha/(.*)$~' => [Controllers\AuthController::class, 'captcha'],
+    '~^auth/$~' => [Controllers\AuthController::class, 'mainAction'],
+    '~^captcha/(.*)$~' => [Controllers\AuthController::class, 'captchaAction'],
     '~server_error/$~' => [Controllers\MainController::class, 'errorServerAction']
 ];
 
