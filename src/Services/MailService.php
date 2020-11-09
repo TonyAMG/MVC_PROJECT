@@ -24,7 +24,7 @@ class MailService
         $this->view = new View();
     }
 
-    public function registration($vars)
+    public function registration($vars): bool
     {
         try {
             $this->mail->isSMTP();
@@ -43,8 +43,10 @@ class MailService
             $this->mail->send();
 
             echo '<b>Письмо было успешно отправлено!</b><br>';
+            return true;
         } catch (Exception $e) {
             echo "<b>Письмо не отправлено. Ошибка отправки</b>: {$this->mail->ErrorInfo}<br>";
+            return false;
         }
     }
 

@@ -1,0 +1,9 @@
+<h2 class="title">Ты успешно зарегистрирован!</h2>
+<p><b><?=@$vars["name"]?"Имя:":''?></b>                         <span class="accepted"><?=@$vars["name"]?></span></p>
+<p><b><?=@$vars["password"]?"Пароль:":''?></b>                  <span class="accepted"><?=@$vars["password"]?></span></p>
+<p><b><?=@$vars["sex"]?"Пол:":''?></b>                          <span class="accepted"><?=@($vars["sex"] === "male")?'мужской':''?><?=@($vars["sex"] === "female")?'женский':''?></span></p>
+<p><b><?=@$vars["email"]?"E-mail:":''?></b>                     <span class="accepted"><?=@$vars["email"]?></span></p>
+<p><b><?=@$vars["card_type"]?"Тип карты:":''?></b>              <span class="accepted"><?=@$vars["card_type"]?></span></p>
+<p><b><?=@$vars["card_number"]?"Номер карты:":''?></b>          <span class="accepted"><?=@$vars["card_number"]?></span></p>
+<p><b><?=@$vars["birth_year"]?"Год рождения:":''?></b>          <span class="accepted"><?=@$vars["birth_year"]?></span></p>
+<p><b><?=@$vars["about_yourself"]?"О себе:":''?></b>            <span class="accepted"><?=@$vars["about_yourself"]?></span></p>

@@ -47,6 +47,15 @@ class UserModel
         return $this->db->create($query, $params);
     }
 
+    //обновляем статус отправленного email
+    public function updateSentMailStatus($user_id): bool
+    {
+        $query = "UPDATE `cron_reg_mail`
+                  SET `sent_to_user` = 'Yes'
+                  WHERE `user_id` = :user_id";
+        return $this->db->create($query, ['user_id' => $user_id]);
+    }
+
     //извлечение данных о неотправленных регистрационных формах
     public function extractUnsentRegForms()
     {
@@ -84,7 +93,7 @@ class UserModel
         return @$emails;
     }
 
-    //извлекаем целиком поле пользователя по id
+    //извлекаем целиком строку пользователя по id
     public function extractUserById($id)
     {
         $query = "SELECT *
@@ -92,4 +101,6 @@ class UserModel
                   WHERE `user_id` = :user_id";
         return $this->db->query($query, ['user_id' => $id], PDO::FETCH_ASSOC);
     }
+
+
 }

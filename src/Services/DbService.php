@@ -25,9 +25,7 @@ class DbService
         );
     }
 
-
     //интерфейс получения данных из таблицы
-    //через bindParam
     public function query(string $sql, array $params = [], string $fetch_type = PDO::FETCH_ASSOC): ?array
     {
         $sth = $this->pdo->prepare($sql);

@@ -88,7 +88,7 @@ class RegController
         if (@$_SESSION['reg_status'] === 'success'){
             unset($_SESSION['reg_status']);
             $this->view->htmlViewer('global_header', 'reg_successful');
-            $this->view->htmlViewer('mail_reg_form', $_SESSION['input']);
+            $this->view->htmlViewer('reg_status_success', $_SESSION['input']);
             $this->view->htmlViewer('global_footer');
         //запрещаем обращение к странице любым другим способом
         } else {
