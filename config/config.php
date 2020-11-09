@@ -30,7 +30,10 @@ $routes_list = [
     '~auth/successful$~' => [Controllers\AuthController::class, 'successfulAuthAction'],
     '~^auth/$~' => [Controllers\AuthController::class, 'mainAction'],
     '~^captcha/(.*)$~' => [Controllers\AuthController::class, 'captchaAction'],
-    '~server_error/$~' => [Controllers\MainController::class, 'errorServerAction']
+    '~server_error/$~' => [Controllers\MainController::class, 'errorServerAction'],
+
+
+    '~cron/$~' => [Services\CronMailSender::class, 'sendRegMail']
 ];
 
 //настройки для PHPMailer
@@ -111,7 +114,8 @@ $parse_table = [
 
 
 $error_msg = ["name"             =>   ["db_check"       => "* <b>Имя</b> уже занято другим пользователем. <br>",
-                                       "validator"      => "* <b>Имя</b> должно состоять из _, латиницы или цифр (от 5 до 20 символов). <br>"],
+                                       "validator"      => "* <b>Имя</b> должно состоять из _, латиницы или цифр (от 5 до 20 символов). <br>",
+                                       "login_error"    => "* <b>Имя</b> и/или <b>пароль</b> введены неверно.<br>"],
               "password"         =>   ["validator"      => "* <b>Пароль</b> должен состоять из латинских букв, цифр (от 10 до 30 символов). <br>"],
               "sex"              =>   ["db_check"       => "* <b>Пол</b> не выбран. <br>"],
               "birth_year"       =>   ["validator"      => "* <b>Год рождения</b> указан неверно. <br>"],

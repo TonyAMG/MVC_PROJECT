@@ -25,7 +25,9 @@ class DbService
         );
     }
 
+
     //интерфейс получения данных из таблицы
+    //через bindParam
     public function query(string $sql, array $params = [], string $fetch_type = PDO::FETCH_ASSOC): ?array
     {
         $sth = $this->pdo->prepare($sql);
@@ -37,7 +39,7 @@ class DbService
     }
 
     //интерфейс добавления данных в таблицу
-    public function create(string $sql, array $params = []) : bool
+    public function create(string $sql, array $params = []): bool
     {
         $sth = $this->pdo->prepare($sql);
         $result = $sth->execute($params);

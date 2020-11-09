@@ -12,26 +12,33 @@ class Form
     protected $upload_dir;
     public $sanitized_post;
 
-    public function __construct($inputs_properties, $db_check, $error_msg, $upload_dir)
+    public function __construct()
     {
-        $this->inputs_properties = $inputs_properties;
-        $this->db_check = $db_check;
-        $this->error_msg = $error_msg;
-        $this->upload_dir = $upload_dir;
+        $config = new Config();
+        $this->inputs_properties = $config->inputs_properties;
+        $this->db_check = $config->db_check;
+        $this->error_msg = $config->error_msg;
+        $this->upload_dir = $config->upload_dir;
     }
 
     //метод извлечения и дезинфекции $_POST
-    public function postReaper() : array
+    public function postReaper(): array
     {
         $ip = $this->inputs_properties;
         foreach ($ip as $key => $value) {
+            //обрезаем данные до длины, указанной в свойствах
             if (isset($ip[$key]["max_length"])) {
-                @$sanitized_post[$key] = mb_substr($_POST[$key]??$_SESSION["input"][$key], 0, $ip[$key]["max_length"]);
+                @$sanitized_post[$key] = mb_substr(
+                    $_POST[$key]??$_SESSION["input"][$key],
+                    0,
+                    $ip[$key]["max_length"]
+                );
             } else {
                 @$sanitized_post[$key] = $_POST[$key]??$_SESSION["input"][$key];
             }
+            //дезинфицируем данные
             $sanitized_post[$key] = htmlspecialchars(trim($sanitized_post[$key]));
-            //записываем дезинфицированные данные в сессию
+            //записываем данные в сессию
             $_SESSION["input"][$key] = $sanitized_post[$key];
         }
         $this->sanitized_post = $sanitized_post;

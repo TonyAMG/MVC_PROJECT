@@ -16,24 +16,24 @@ class MainController
 
     public function mainAction()
     {
-        $this->view->htmlViewer('header', 'main_page');
-        $this->view->htmlViewer('main');
-        $this->view->htmlViewer('footer');
+        $this->view->htmlViewer('global_header', 'main_page');
+        $this->view->htmlViewer('main_page');
+        $this->view->htmlViewer('global_footer');
     }
 
     //action ошибки 404
     public function error404Action()
     {
-        $this->view->htmlViewer('header', 'error404');
-        $this->view->htmlViewer('404');
-        $this->view->htmlViewer('footer');
+        $this->view->htmlViewer('global_header', 'error404');
+        $this->view->htmlViewer('global_error_404');
+        $this->view->htmlViewer('global_footer');
     }
 
     //action ошибки сервера
     public function errorServerAction()
     {
-        $this->view->htmlViewer('header', 'server_error');
-        $this->view->htmlViewer('server_error');
-        $this->view->htmlViewer('footer');
+        $this->view->htmlViewer('global_header', 'server_error');
+        $this->view->htmlViewer('global_error_server');
+        $this->view->htmlViewer('global_footer');
     }
 }
