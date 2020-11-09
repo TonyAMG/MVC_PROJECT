@@ -16,8 +16,10 @@ class Captcha
         $this->config = new Config();
     }
 
-    public function generateCAPTCHA(int $secret_number, bool $create_noise = false) : void
+    public function generateCAPTCHA(bool $create_noise = false) : void
     {
+        //извлекаем секретный номер из сесси
+        $secret_number = $_SESSION['secret_number'];
         //путь к шрифту
         $font = $this->config->font;
         //создаем фон рисунка
