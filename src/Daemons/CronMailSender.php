@@ -1,9 +1,10 @@
 <?php
 
 
-namespace Services;
+namespace Daemons;
 
 use Model\UserModel;
+use Services\MailService;
 
 class CronMailSender
 {
