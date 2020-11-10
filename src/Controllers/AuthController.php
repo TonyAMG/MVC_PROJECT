@@ -5,7 +5,7 @@ namespace Controllers;
 
 
 use lib\Captcha;
-use lib\Config;
+use Services\ConfigService;
 use lib\Form;
 use Model\UserModel;
 use View\View;
@@ -21,7 +21,7 @@ class AuthController
     public function __construct()
     {
         $this->view = new View();
-        $this->config = new Config();
+        $this->config = ConfigService::getInstance();
         $this->captcha = new Captcha();
     }
 

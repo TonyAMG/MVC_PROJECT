@@ -4,6 +4,8 @@
 namespace lib;
 
 
+use Services\ConfigService;
+
 class Localisation
 {
     public $config;
@@ -12,7 +14,7 @@ class Localisation
 
     public function __construct()
     {
-        $this->config = new Config();
+        $this->config = ConfigService::getInstance();
         require $this->config->localisation_dir.$this->config->localisation_file;
         $this->page_title = $page_title;
         $this->preview_template_loc = $preview_template_loc;

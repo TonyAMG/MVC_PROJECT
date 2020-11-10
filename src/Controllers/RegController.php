@@ -3,10 +3,11 @@
 
 namespace Controllers;
 
-use lib\Config;
+
 use lib\FileUploader;
 use lib\FormReg;
 use Model\UserModel;
+use Services\ConfigService;
 use Services\MailService;
 use View\View;
 
@@ -19,7 +20,7 @@ class RegController
 
     public function __construct()
     {
-        $this->config = new Config();
+        $this->config = ConfigService::getInstance();
         $this->view = new View();
         $this->form_reg = new FormReg();
         $this->file_uploader = new FileUploader(

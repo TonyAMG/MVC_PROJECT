@@ -1,4 +1,8 @@
 RewriteEngine On
-RewriteCond %{SCRIPT_FILENAME} !-d
-RewriteCond %{SCRIPT_FILENAME} !-f
+#RewriteCond %{SCRIPT_FILENAME} !-f [OR]
+RewriteCond %{SCRIPT_FILENAME} !\.(png|jpg)$
+
+#RewriteCond %{SCRIPT_FILENAME} !-d
+#RewriteCond %{SCRIPT_FILENAME} !index.php
+
 RewriteRule ^(.*)$ index.php?route=$1 [QSA,L]

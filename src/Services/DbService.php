@@ -5,7 +5,6 @@
 namespace Services;
 
 
-use lib\Config;
 use PDO;
 
 class DbService
@@ -16,7 +15,7 @@ class DbService
 
     private function __construct()
     {
-        $this->config = new Config();
+        $this->config = ConfigService::getInstance();;
         $this->pdo = new PDO(
             $this->config->db_config['dsn'],
             $this->config->db_config['user'],

@@ -4,7 +4,6 @@
 namespace Services;
 
 
-use lib\Config;
 use PHPMailer\PHPMailer\Exception;
 use PHPMailer\PHPMailer\PHPMailer;
 use View\View;
@@ -19,7 +18,7 @@ class MailService
 
     private function __construct()
     {
-        $this->config = new Config();
+        $this->config = ConfigService::getInstance();
         $this->mail = new PHPMailer(true);
         $this->view = new View();
     }

@@ -4,7 +4,7 @@
 namespace lib;
 
 
-use lib\Config;
+use Services\ConfigService;
 
 class Captcha
 {
@@ -13,7 +13,7 @@ class Captcha
 
     public function __construct()
     {
-        $this->config = new Config();
+        $this->config = ConfigService::getInstance();
     }
 
     public function generateCAPTCHA(bool $create_noise = false) : void

@@ -3,7 +3,8 @@
 
 namespace Controllers;
 
-use lib\Config;
+
+use Services\ConfigService;
 
 class IndexController
 {
@@ -14,7 +15,7 @@ class IndexController
 
     public function __construct($route)
     {
-        $this->config = new Config();
+        $this->config = ConfigService::getInstance();
         $this->route = $route;
     }
 

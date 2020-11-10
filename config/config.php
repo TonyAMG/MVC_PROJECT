@@ -31,24 +31,7 @@ $routes_list = [
     '~^auth/$~' => [Controllers\AuthController::class, 'mainAction'],
     '~^captcha/(.*)$~' => [Controllers\AuthController::class, 'captchaAction'],
     '~server_error/$~' => [Controllers\MainController::class, 'errorServerAction'],
-
-
     '~cron/$~' => [Services\CronMailSender::class, 'sendRegMail']
-];
-
-//настройки для PHPMailer
-$mail_config = [
-    'Host'          =>  'smtp.gmail.com',
-    'Username'      =>  '2005test2005test',
-    'Password'      =>  'password',
-
-];
-
-//настройки базы данных
-$db_config = [
-    'dsn'       =>   'mysql:host=localhost;dbname=mvc_project',
-    'user'      =>   'mvc_project',
-    'password'  =>   'password'
 ];
 
 //список доступных input с формы
@@ -105,10 +88,6 @@ $parse_table = [
             '<!--PREVIEW_VALUE-->'              =>           '<?=$value?>',
 
             "regex"                             =>           [0 => ['/(<!--SPACES\[)(\d{1,3})(\]-->)/', '<?=$this->spaceGen($2)?>'] ]
-
-
-
-
 
 ];
 

@@ -4,6 +4,8 @@
 namespace lib;
 
 
+use Services\ConfigService;
+
 class Form
 {
     protected $inputs_properties;
@@ -14,7 +16,7 @@ class Form
 
     public function __construct()
     {
-        $config = new Config();
+        $config = ConfigService::getInstance();
         $this->inputs_properties = $config->inputs_properties;
         $this->db_check = $config->db_check;
         $this->error_msg = $config->error_msg;

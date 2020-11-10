@@ -4,8 +4,8 @@
 namespace View;
 
 
-use lib\Config;
 use lib\Localisation;
+use Services\ConfigService;
 
 class View
 {
@@ -17,7 +17,7 @@ class View
 
     public function __construct()
     {
-        $this->config = new Config();
+        $this->config = ConfigService::getInstance();
         $this->localisation = new Localisation();
         $this->parse_table = $this->config->parse_table;
         $this->templates_dir = $this->config->templates_dir;

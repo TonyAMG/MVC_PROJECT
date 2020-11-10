@@ -1,11 +1,12 @@
 <?php
 
 
-namespace lib;
+namespace Services;
 
 
-class Config
+class ConfigService
 {
+    private static $instance;
     public $host;
     public $templates_dir;
     public $localisation_dir;
@@ -22,7 +23,7 @@ class Config
     public $mail_config;
     public $db_config;
 
-    public function __construct()
+    private function __construct()
     {
         require dirname(__FILE__) . '/../../config/config.php';
         $this->host = $host;
@@ -38,7 +39,16 @@ class Config
         $this->db_check = $db_check;
         $this->parse_table = $parse_table;
         $this->error_msg = $error_msg;
-        $this->mail_config = $mail_config;
-        $this->db_config = $db_config;
+        $this->mail_config = require __DIR__ . '/../../config/mail_config.php';
+        $this->db_config = require __DIR__ . '/../../config/db_config.php';
+    }
+
+    //singleton-интерфейс получения экземпляра
+    public static function getInstance(): self
+    {
+        if (self::$instance === null) {
+            self::$instance = new self();
+        }
+        return self::$instance;
     }
 }
