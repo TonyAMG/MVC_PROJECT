@@ -27,19 +27,17 @@ class AuthController
 
     public function mainAction()
     {
-        //проверяем, сохранена ли в сессии капча, если нет - генерим и сохраняем
-        $_SESSION['secret_number'] = $_SESSION['secret_number'] ?? mt_rand(1000, 9999);
         //если нажата кнопка Войти
         if (isset($_POST["button"])) {
             $form = new Form();
             $name = $form->postReaper()['name'];
             $password = $form->postReaper()['password'];
-            $secret_number = $_POST['captcha'];
+            $secret_number = (int) $_POST['captcha'];
             $user = new UserModel();
             $users_credentials = $user->extractUserCredentials();
 
             //проверяем что введенная пользователем капча верна
-            if ($secret_number == $_SESSION['secret_number']){
+            if ($secret_number === $_SESSION['secret_number']){
                 if (
                     //проверяем существование пользователя в базе данных
                     array_key_exists($name, $users_credentials)

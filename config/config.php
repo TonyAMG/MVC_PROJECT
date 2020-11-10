@@ -31,7 +31,7 @@ $routes_list = [
     '~^auth/$~' => [Controllers\AuthController::class, 'mainAction'],
     '~^captcha/(.*)$~' => [Controllers\AuthController::class, 'captchaAction'],
     '~server_error/$~' => [Controllers\MainController::class, 'errorServerAction'],
-    '~cron/$~' => [Services\CronMailSender::class, 'sendRegMail']
+    '~cron/$~' => [Daemons\CronMailSender::class, 'sendRegMail']
 ];
 
 //список доступных input с формы
