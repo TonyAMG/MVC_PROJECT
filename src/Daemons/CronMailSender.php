@@ -4,6 +4,7 @@
 namespace Daemons;
 
 use Model\UserModel;
+use Model\CronModel;
 use Services\MailService;
 
 class CronMailSender
@@ -18,11 +19,12 @@ class CronMailSender
 
     public function sendRegMail()
     {
+        $cron = new CronModel();
         $user = new UserModel();
         //извлекаем данные из БД о пользовательских регистрациях
-        $user_regs = $user->extractUnsentRegForms();
+        $user_regs = $cron->extractUnsentRegForms();
         foreach ($user_regs as $key => $value) {
-            //если форма успешной регистрации не отправлена
+            //если форма успешной регистрации еще не отправлена
             //на email, пакуем данные в массив для дальнешей работы
             if ($user_regs[$key]['sent_to_user'] === 'No') {
                 $user_records_raw[] = $user->extractUserById($user_regs[$key]['user_id']);
@@ -36,7 +38,7 @@ class CronMailSender
                 if ($this->mail->registration($user_records[$key])) {
                     //если письмо успешно отослано
                     //обновляем таблицу в БД
-                    $user->updateSentMailStatus($user_records[$key]['user_id']);
+                    $cron->updateSentMailStatus($user_records[$key]['user_id']);
                     $this->mail->clearAddresses();
                 }
             }

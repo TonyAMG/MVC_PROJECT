@@ -2,3 +2,5 @@
 
 /config/db_config.php
 /config/mail_config.php
+/.tmp.drivedownload/
+/test.php

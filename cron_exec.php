@@ -1,5 +1,7 @@
 <?php
 
+
+
 // создание нового cURL ресурса
 $ch = curl_init();
 
@@ -7,7 +9,7 @@ $ch = curl_init();
 curl_setopt($ch, CURLOPT_URL, 'localhost/'.basename(__DIR__).'/cron/');
 curl_setopt($ch, CURLOPT_HEADER, 0);
 
-// загрузка страницы и выдача её браузеру
+
 curl_exec($ch);
 
 // завершение сеанса и освобождение ресурсов

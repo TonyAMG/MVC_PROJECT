@@ -6,6 +6,7 @@ namespace Controllers;
 
 use lib\FileUploader;
 use lib\FormReg;
+use Model\CronModel;
 use Model\UserModel;
 use Services\ConfigService;
 use Services\MailService;
@@ -54,15 +55,15 @@ class RegController
                 //создаем хеш пароля
                 $correct_answers['password'] = password_hash($correct_answers['password'], PASSWORD_DEFAULT);
                 //пытаемся зарегистрировать пользователя
-
                 $user = new UserModel();
+                $cron = new CronModel();
                 $reg_status = $user->registerUser($correct_answers);
 
                 if ($reg_status === true) {
                     //добавляем задание в табоицу cron
-                    $mail_cron_status = $user->addUserMailToCron();
+                    $mail_cron_status = $cron->addUserMailToCron();
                     //отправляем форму регистрации на Email
-                    //$mail = new MailService();
+                    //$mail = MailService::getInstance();
                     //$mail->registration($correct_answers);
                     $_SESSION['reg_status'] = 'success';
                     header('Location: /'.$this->config->host.'/reg/successful');

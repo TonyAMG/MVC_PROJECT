@@ -3,6 +3,6 @@ RewriteEngine On
 RewriteCond %{SCRIPT_FILENAME} !\.(png|jpg)$
 
 #RewriteCond %{SCRIPT_FILENAME} !-d
-#RewriteCond %{SCRIPT_FILENAME} !index.php
+#RewriteCond %{SCRIPT_FILENAME} !cron_exec.php
 
 RewriteRule ^(.*)$ index.php?route=$1 [QSA,L]
