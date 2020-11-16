@@ -25,7 +25,7 @@ class AuthController
         $this->captcha = new Captcha();
     }
 
-    public function mainAction()
+    public function mainAction(): void
     {
         //если нажата кнопка Войти
         if (isset($_POST["button"])) {
@@ -63,7 +63,7 @@ class AuthController
         $this->view->htmlViewer('global_footer');
     }
 
-    public function successfulAuthAction()
+    public function successfulAuthAction(): void
     {
         //проверяем, что пользователь был переброшен
         //на action сразу после успешной аутентификации
@@ -79,7 +79,7 @@ class AuthController
         }
     }
 
-    public function captchaAction()
+    public function captchaAction(): void
     {
         $this->captcha->generateCAPTCHA();
     }

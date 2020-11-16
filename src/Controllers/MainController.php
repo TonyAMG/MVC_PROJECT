@@ -14,7 +14,7 @@ class MainController
         $this->view = new View();
     }
 
-    public function mainAction()
+    public function mainAction(): void
     {
         $this->view->htmlViewer('global_header', 'main_page');
         $this->view->htmlViewer('main_page');
@@ -22,7 +22,7 @@ class MainController
     }
 
     //action ошибки 404
-    public function error404Action()
+    public function error404Action(): void
     {
         $this->view->htmlViewer('global_header', 'error404');
         $this->view->htmlViewer('global_error_404');
@@ -30,7 +30,7 @@ class MainController
     }
 
     //action ошибки сервера
-    public function errorServerAction()
+    public function errorServerAction(): void
     {
         $this->view->htmlViewer('global_header', 'server_error');
         $this->view->htmlViewer('global_error_server');
